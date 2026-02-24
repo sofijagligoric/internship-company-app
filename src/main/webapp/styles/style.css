@@ -1,0 +1,273 @@
+@charset "ISO-8859-1";
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column-div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.row-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+input,
+select {
+  height: 35px;
+  width: 100%;
+  text-indent: 5px;
+  font-size: 14px;
+  max-width: 300px;
+  border-radius: 5px;
+  border: 1px solid #bdb6f0;
+}
+input:focus {
+  outline: none;
+  border: 2px solid #bdb6f0;
+}
+
+select:focus {
+  outline: none;
+  border: 2px solid #bdb6f0;
+}
+
+textarea {
+  min-height: 50px;
+  min-width: 100%;
+  max-width: 100%;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #bdb6f0;
+  font-family: inherit;
+  padding: 5px;
+}
+textarea:focus {
+  outline: none;
+  border: 2px solid #bdb6f0;
+}
+
+button {
+  border-radius: 10px;
+  border: none;
+  height: 40px;
+}
+
+.button-primary {
+  background-color: #051642;
+  color: white;
+  cursor: pointer;
+}
+
+.button-primary:hover {
+  opacity: 0.8;
+}
+
+.button-primary:disabled {
+  background-color: #8296a8;
+  color: #c3cfd9;
+}
+
+.search-box input {
+  padding: 8px;
+  width: 250px;
+  border-radius: 20px;
+  border: 1px solid #a39ae6;
+}
+
+.search-box input:focus {
+  outline: none;
+  border: 2px solid #a39ae6;
+}
+
+.apply-btn {
+  margin-top: 10px;
+  background: #051642;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+  min-width: 65px;
+}
+
+.apply-btn:hover {
+  opacity: 0.8;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 500px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: right;
+  gap: 15px;
+}
+
+.confirm-btn {
+  background: #1238e0;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  opacity: 0.8;
+}
+
+.cancel-btn {
+  background: #051642;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  color: white;
+}
+
+.cancel-btn:hover {
+  opacity: 0.8;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid #051642;
+  width: 100%;
+  overflow-x: auto;
+}
+
+td {
+  border: 1px solid #051642;
+  padding: 10px;
+  min-width: 110px;
+  word-break: break-word;
+}
+
+th {
+  border: 1px solid #051642;
+  padding: 5px;
+}
+
+tr:hover {
+  background-color: #d2ddfa;
+}
+
+thead {
+  background-color: #96b0f2;
+}
+
+thead:hover > tr {
+  background-color: #96b0f2;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination button {
+  width: 70px;
+  height: 40px;
+  background: #051642;
+  color: white;
+}
+
+.pagination button:hover {
+  opacity: 0.8;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+}
+
+div {
+  word-break: break-all;
+  white-space: normal;
+}
+
+.view-btn-link {
+  display: inline-block;
+  text-decoration: none;
+  background: #1238e0;
+  padding: 8px 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+  height: 40px;
+  min-width: 65px;
+}
+
+.view-btn-link:hover {
+  opacity: 0.8;
+}
+
+.success-snackbar {
+  --mdc-snackbar-container-color: #2e7d32 !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+}
+
+.error-snackbar {
+  --mdc-snackbar-container-color: #bd4d4d !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+}
+
+p {
+  word-break: break-word;
+}
+
+.viewport {
+  height: 500px;
+  width: 100%;
+}
+html,
+body {
+  height: 100%;
+}
+
+.red-star {
+  color: #f03636;
+  margin: 0;
+  margin-right: 3px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  word-break: break-word;
+  word-wrap: break-word;
+}
