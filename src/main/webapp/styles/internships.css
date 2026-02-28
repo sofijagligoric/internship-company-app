@@ -1,0 +1,145 @@
+.main-internships-div {
+	padding: 40px;
+}
+
+.table-container {
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 1rem;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 800px;
+}
+
+@media ( max-width : 768px) {
+	table {
+		font-size: 14px;
+	}
+	.pagination-container {
+		flex-direction: column;
+		gap: 10px;
+	}
+	.main-internships-div {
+		padding: 15px;
+	}
+}
+
+.int-pag {
+	margin-top: 20px;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.cards-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.internship-card {
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	background-color: #ddecf0; /*#dedaf2*/
+	transition: 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.internship-card  h3 {
+	margin-block-start: 10px;
+	margin-block-end: 10px;
+	color: #051642;
+}
+
+.internship-card  h4, h5 {
+	margin-block-start: 10px;
+	margin-block-end: 10px;
+	color: #4b68b3;
+}
+
+.internship-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.card-header h3 {
+	margin: 0;
+	font-size: 18px;
+}
+
+.status {
+	padding: 5px 10px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.status.open {
+	background-color: #d4edda;
+	color: #155724;
+}
+
+.status.closed {
+	background-color: #f8d7da;
+	color: #721c24;
+}
+
+.card-body p {
+	margin: 6px 0;
+	font-size: 14px;
+}
+
+.main-internships-div {
+	padding: 40px;
+}
+
+.paragraph {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.create-int-button-div {
+	width: 100%;
+	margin-bottom: 20px;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+@media ( max-width : 768px) {
+	.main-internships-div {
+		padding: 15px;
+	}
+	.card-header {
+		flex-direction: column-reverse;
+		align-items: flex-start;
+		justify-content: flex-start;
+		gap: 5px;
+	}
+	.status {
+		align-self: flex-end;
+	}
+}
+
+.card-footer {
+	border-top: 1px solid #eee;
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	flex-wrap: wrap;
+}

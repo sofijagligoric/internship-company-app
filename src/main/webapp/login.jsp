@@ -1,6 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<jsp:useBean id="userBean" class="org.unibl.etf.company.bean.UserBean" scope="session" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<jsp:useBean id="userBean" class="org.unibl.etf.company.bean.UserBean"
+	scope="session" />
+<jsp:useBean id="internshipBean"
+	class="org.unibl.etf.company.bean.InternshipBean" scope="session" />
+	<jsp:useBean id="applicationsBean"
+	class="org.unibl.etf.company.bean.ApplicationsBean" scope="session" />
 <%
 String notification = "";
 if (request.getParameter("submit") != null) {
@@ -8,6 +13,9 @@ if (request.getParameter("submit") != null) {
 	String pass = request.getParameter("password");
 
 	if (userBean.login(user, pass)) {
+		Integer companyId = userBean.getUser().getId();
+		internshipBean.loadInternships(companyId);
+		applicationsBean.loadApplications(companyId);
 		response.sendRedirect("internships.jsp");
 		return;
 	} else {
@@ -21,22 +29,25 @@ if (request.getParameter("submit") != null) {
 <head>
 <title>Login</title>
 <link href="styles/style.css" type="text/css" rel="stylesheet">
+<link href="styles/login.css" type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-	<div class="login-container">
-		<form method="POST" action="login.jsp">
-			Username<br /> <input type="text" name="username" required /><br />
-			Password <br /> <input type="password" name="password" required /><br />
-			<input type="submit" value="Prijavi me" name="submit" /><br />
-		</form>
+	<div class="main-div column-div">
+		<form method="POST" action="login.jsp" class="login-form column-div">
+			<h1 class="login-title">Login</h1>
+			<input type="text" name="username" required placeholder="Username" />
+			<input type="password" name="password" required
+				placeholder="Password" /> <input class="button-primary"
+				type="submit" value="Login" name="submit" />
 
-		<%
-		if (!notification.isEmpty()) {
-		%>
-		<h3 style="color: red;"><%=notification%></h3>
-		<%
-		}
-		%>
+		</form>
+		<% if (!notification.isEmpty()) { %>
+		<div class="notification-div">
+			<h3><%= notification %></h3>
+		</div>
+		<% } %>
 	</div>
+
 </body>
 </html>

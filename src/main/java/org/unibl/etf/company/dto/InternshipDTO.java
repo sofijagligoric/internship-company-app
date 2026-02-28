@@ -1,10 +1,14 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
-public class InternshipDTO {
+public class InternshipDTO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7159984086340038503L;
 	private Integer id;
     private String name;
     private LocalDate startDate;
@@ -95,22 +99,6 @@ public class InternshipDTO {
 	}
 	public void setRequirements(String requirements) {
 		this.requirements = requirements;
-	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(companyId, id, name);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		InternshipDTO other = (InternshipDTO) obj;
-		return Objects.equals(companyId, other.companyId) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name);
 	}
     
     

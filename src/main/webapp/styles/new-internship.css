@@ -1,0 +1,68 @@
+.main-new-internship-div {
+	display: flex;
+	justify-content: center;
+	padding: 40px;
+	background: #f5f7fa;
+	align-items: center;
+}
+.new-int-header {
+	color: #051642;
+	text-align: center;
+}
+
+.new-internship-card {
+	width: 90%;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	padding: 30px;
+}
+
+.submit-button {
+	width: 150px;
+	align-self: flex-end;
+	margin-top: 15px;
+}
+
+.internship-form {
+	align-items: flex-start;
+	justify-content: center;
+	gap: 15px;
+	padding: 30px;
+}
+
+.internship-form input {
+	max-width: 100% !important;
+}
+
+.create-internship-input-div {
+	gap: 5px;
+	width: 100%;
+}
+
+
+.input-group {
+	margin-bottom: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.input-group label {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+@media ( max-width : 750px) {
+	.internship-form {
+		padding: 0;
+	}
+	.submit-button {
+		align-self: center;
+	}
+	.main-new-internship-div {
+		padding: 10px;
+	}
+	
+	.new-int-header {
+	font-size: 1.2rem;
+	margin-bottom: 25px;
+}
+}

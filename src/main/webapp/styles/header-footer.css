@@ -1,0 +1,137 @@
+.header-div {
+  background-color: #051642;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 15px;
+  font-size: 14px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.menu > li:hover {
+  color: #96a3c4;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #051642;
+  list-style: none;
+  color: white;
+  padding: 0;
+  max-width: 200px;
+  width: 100%;
+  min-width: 160px;
+  padding-top: 10px;
+}
+
+.dropdown-menu li:hover {
+  background: #0a2261;
+}
+
+.dropdown-menu li {
+  min-height: 30px;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown input {
+  display: none;
+}
+
+.dropdown input:checked ~ .dropdown-menu {
+  display: block;
+}
+
+.logout-button {
+  color: white;
+  background: #051642;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.logout-button:hover {
+  background: #0a2261;
+}
+
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+#check, .checkbtn {
+  display: none;
+}
+
+.checkbtn {
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+
+@media (max-width: 700px) {
+  .checkbtn {
+    display: block; 
+  }
+
+  .menu {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    background: #051642;
+    top: 50px;
+    left: -100%; 
+    text-align: center;
+    transition: all .5s;
+    flex-direction: column; 
+    gap: 0;
+    z-index: 1000;
+  }
+
+  #check:checked ~ .menu {
+    left: 0;
+  }
+
+  .menu li {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    width: 100%; 
+    border-bottom: 1px solid #0a2261;
+    min-height: 35px;
+    margin: 10px 5px;
+  }
+  
+  /*  .dropdown {
+    min-height: 35px;
+    margin: 10px 5px;
+  } */
+
+  .dropdown-menu {
+    position: relative;
+    width: 100%;
+    display: none;
+    max-width: none;
+  }
+
+}

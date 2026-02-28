@@ -55,23 +55,49 @@ public class BackendService {
             return null;
         }
     }
-
+    
     public boolean put(String endpoint, Object body) {
         try {
-            client.target(BASE_URL).path(endpoint)
+            Response response = client.target(BASE_URL).path(endpoint)
                     .request(MediaType.APPLICATION_JSON)
                     .put(Entity.entity(body, MediaType.APPLICATION_JSON));
-            return true;
+
+            int status = response.getStatus();
+            boolean isSuccessful = response.getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL;
+            response.close();
+            return isSuccessful;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+    
+    public <T> T putWithResponse(String endpoint, Object body, Class<T> responseType) {
+        try {
+            String fullUrl = BASE_URL + endpoint; 
+            Entity<?> entity = (body == null) 
+                ? Entity.entity("", MediaType.APPLICATION_JSON) 
+                : Entity.entity(body, MediaType.APPLICATION_JSON);
+            return client.target(fullUrl) 
+                    .request(MediaType.APPLICATION_JSON)
+                    .put(entity, responseType);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public boolean delete(String endpoint) { 
         try {
-            client.target(BASE_URL).path(endpoint).request().delete();
-            return true;
+            Response response = client.target(BASE_URL)
+                                      .path(endpoint)
+                                      .request()
+                                      .delete();
+            
+            boolean isSuccessful = response.getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL;
+            response.close(); 
+            return isSuccessful;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -79,11 +105,28 @@ public class BackendService {
     }
 
   
-    public <T> T patch(String endpoint, Object body, Class<T> responseType) {
+    public boolean patch(String endpoint, Object body) {
         try {
-            return client.target(BASE_URL).path(endpoint)
+            Response response = client.target(BASE_URL)
+                    .path(endpoint)
                     .request(MediaType.APPLICATION_JSON)
-                    .method("PATCH", Entity.entity(body, MediaType.APPLICATION_JSON), responseType);
+                    .method("PATCH", Entity.entity(body, MediaType.APPLICATION_JSON));
+
+            return response.getStatus() == 200;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public <T> T patchWithResponse(String endpoint, Object body, Class<T> responseType) {
+        try {
+            Object entityBody = (body != null) ? body : ""; 
+            
+            return client.target(BASE_URL)
+                    .path(endpoint)
+                    .request(MediaType.APPLICATION_JSON)
+                    .method("PATCH", Entity.entity(entityBody, MediaType.APPLICATION_JSON), responseType);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -1,0 +1,39 @@
+
+.main-div {
+  background: radial-gradient(circle at top left, #cedbed, #4b68b3);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  background: white;
+  border-radius: 20px;
+}
+
+.login-form input[type="submit"] {
+  width: 90%;
+  max-width: 250px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+}
+
+.notification-div {
+	background: #f03636;
+	color: white;
+	margin-top: 20px;
+	width: 90%;
+	max-width: 350px;
+	min-height: 50px;
+	text-align: center;
+	border-radius: 20px;
+}
+
