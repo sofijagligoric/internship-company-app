@@ -19,15 +19,26 @@ String newStatusParam = request.getParameter("newStatus");
 String message = null;
 boolean success = false;
 
+ if (session.getAttribute("flashMessage") != null) {
+    message = (String) session.getAttribute("flashMessage");
+    success = (Boolean) session.getAttribute("flashSuccess");
+    
+    session.removeAttribute("flashMessage");
+    session.removeAttribute("flashSuccess");
+}
+
 if (appIdParam != null && newStatusParam != null && "POST".equalsIgnoreCase(request.getMethod())) {
 	try {
 		Integer appId = Integer.parseInt(appIdParam);
 		applicationsBean.changeStatus(appId, newStatusParam);
-		message = "Status changed to: " + newStatusParam+".";
-		success = true;
+		session.setAttribute("flashMessage", "Status changed to: " + newStatusParam + ".");
+		session.setAttribute("flashSuccess", true);
 	} catch (Exception e) {
-		message = "Cannot change status to " + newStatusParam +".";
+		session.setAttribute("flashMessage", "Cannot change status to " + newStatusParam + ".");
+		session.setAttribute("flashSuccess", false);
 	}
+	  response.sendRedirect("new_applications.jsp");
+	    return;
 }
 
 List<ApplicationDTO> pendingAps = applicationsBean.getCompanyApplicationsPending(userBean.getUser().getId());
@@ -69,65 +80,78 @@ if (totalItems > 0) {
 </head>
 <body>
 	<%@include file="WEB-INF/header.jsp"%>
-	
+
 	<div class="main-new-app-div">
-	<%
+		<%
 		if (message != null) {
 		%>
-	<div class="notification <%=success ? "success" : "error"%>">
-		<%=message%>
-	</div>
-	<%
+		<div class="notification <%=success ? "success" : "error"%>">
+			<%=message%>
+		</div>
+		<%
 		}
 		%>
-    <div class="table-container">
-		<table>
+		<div class="table-container">
+			<table>
 
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Internship</th>
-					<th>Student</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Internship</th>
+						<th>Student</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
 
-			<tbody>
-				<%
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
-				for (ApplicationDTO app : pagedApps) {
-				%>
-				<tr>
-					<td><%=app.getDate() != null ? app.getDate().format(formatter) : "/"%></td>
-					<td><%=app.getInternshipName()%></td>
-					<td><%=app.getStudentName()%></td>
-					<td>
-					<div class="action-buttons">
-						<form method="POST" style="display: inline;"
-							onsubmit="return confirm('Are you sure you want to accept this application?');">
-							<input type="hidden" name="appId" value="<%=app.getId()%>">
-							<input type="hidden" name="newStatus" value="ACCEPTED">
-							<button type="submit" class="apply-btn">✔ Accept</button>
-						</form>
+				<tbody>
+					<%
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+					for (ApplicationDTO app : pagedApps) {
+					%>
+					<tr>
+						<td><%=app.getDate() != null ? app.getDate().format(formatter) : "/"%></td>
+						<td><%=app.getInternshipName()%></td>
+						<td><%=app.getStudentName()%></td>
+						<td>
+							<div class="action-buttons">
+							<a href="cv_view.jsp?studentId=<%=app.getStudentId()%>"
+									class="pagination-link-enabled" style="max-width: none;">
+									CV </a> 
+								<%-- <form action="cv_view.jsp" method="GET"
+								style="display: inline;">
+								<input type="hidden" name="studentId"
+									value="<%=app.getStudentId()%>"> 
+								<button type="submit" class="button-primary" style="padding: 10px; border-radius: 20px">CV</button>
+						     	</form>  --%>
+								<form method="POST" style="display: inline;"
+									onsubmit="return confirm('Are you sure you want to accept this application?');">
+									<input type="hidden" name="appId" value="<%=app.getId()%>">
+									<input type="hidden" name="newStatus" value="ACCEPTED">
+									<button type="submit" class="apply-btn"
+										style="background-color: #28a745;">✔ Accept</button>
+								</form>
 
-						<form method="POST" style="display: inline;"
-							onsubmit="return confirm('Are you sure you want to decline this application?');">
-							<input type="hidden" name="appId" value="<%=app.getId()%>">
-							<input type="hidden" name="newStatus" value="DECLINED">
-							<button type="submit" class="apply-btn"
-							style="background-color: #c42a1f">✖ Decline</button>
-						</form>
-						
-						</div>
-					</td>
-					
-				</tr>
-				<%
-				}
-				%>
-			</tbody>
-		</table>
-	</div>
+								<form method="POST" style="display: inline;"
+									onsubmit="return confirm('Are you sure you want to decline this application?');">
+									<input type="hidden" name="appId" value="<%=app.getId()%>">
+									<input type="hidden" name="newStatus" value="DECLINED">
+									<button type="submit" class="apply-btn"
+										style="background-color: #c42a1f">✖ Decline</button>
+								</form>
+
+							</div>
+						</td>
+
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+		</div>
+		<%
+			if (!pagedApps.isEmpty()) {
+			%>
 		<div class="pagination int-pag">
 			<%
 			if (currentPage > 1) {
@@ -155,6 +179,9 @@ if (totalItems > 0) {
 			}
 			%>
 		</div>
+		<%
+			}
+			%>
 	</div>
 	<script>
     const notification = document.querySelector('.notification');

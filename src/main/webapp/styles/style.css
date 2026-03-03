@@ -277,6 +277,7 @@ div {
 	align-self: flex-end;
 	word-break: break-all;
 	white-space: normal;
+	 z-index: 100; 
 	
 }
 

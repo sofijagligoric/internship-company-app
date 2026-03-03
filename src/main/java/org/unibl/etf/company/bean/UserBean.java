@@ -2,6 +2,8 @@ package org.unibl.etf.company.bean;
 
 import java.io.Serializable;
 
+import org.unibl.etf.company.dto.CompanyDTO;
+import org.unibl.etf.company.dto.EvaluationDTO;
 import org.unibl.etf.company.dto.LoginRequest;
 import org.unibl.etf.company.dto.LoginResponse;
 import org.unibl.etf.company.dto.PasswordChangeDTO;
@@ -27,18 +29,29 @@ public class UserBean implements Serializable{
 	    return bs.put("/users/" + id + "/password", dto); 
 	}
 	
-	public boolean login(String username, String password) {
+	public int login(String username, String password) {
 	    try {
 	        LoginResponse res = bs.post("/auth/login", new LoginRequest(username, password), LoginResponse.class);
 	        if (res != null && res.getRole()!=null && res.getRole()==Role.COMPANY) {
-	            this.user = new UserDTO(res.getUserId(), username, res.getRole());
-	            this.isLoggedIn = true;
-	            return true;
+	        	CompanyDTO comp = bs.get("/company/"  +res.getUserId(), CompanyDTO.class);
+	        	if(comp != null && comp.getActive())
+	        	{
+	        		this.user = new UserDTO(res.getUserId(), username, res.getRole());
+		            this.isLoggedIn = true;
+		            return 1;
+	        	}
+	        	else {
+	        		return 2;
+	        	}
+	        }
+	        else
+	        {
+	        	return 3;
 	        }
 	    } catch (Exception e) {
 	        System.err.println("Login failed: " + e.getMessage());
 	    }
-	    return false;
+	    return 4;
 	}
 	
 	public void logout() {

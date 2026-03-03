@@ -75,14 +75,34 @@ if (totalItems > 0) {
 						<td><%=app.getStudentName()%></td>
 						<td><%=app.getInternshipName()%></td>
 						<td>
-						<div class="action-buttons">
-						<a href="student_workentry.jsp"
-							class="pagination-link-enabled" style="max-width: none;">Work
-								entry</a> <a href="student_evaluation.jsp"
-							class="pagination-link-enabled" style="max-width: none;">Evaluation</a>
+							<div class="action-buttons">
+								<a
+									href="student_workentry.jsp?studentId=<%=app.getStudentId()%>&internshipId=<%=app.getInternshipId()%>"
+									class="pagination-link-enabled" style="max-width: none;">
+									Work entry </a> <a
+									href="student_evaluation.jsp?studentId=<%=app.getStudentId()%>&internshipId=<%=app.getInternshipId()%>"
+									class="pagination-link-enabled" style="max-width: none;"> Evaluation </a>
+
+								<%-- <form action="student_workentry.jsp" method="POST"
+									style="display: inline;">
+									<input type="hidden" name="studentId"
+										value="<%=app.getStudentId()%>"> <input type="hidden"
+										name="internshipId" value="<%=app.getInternshipId()%>">
+									<button type="submit" class="button-primary" style="padding: 10px; border-radius: 20px">Work entry</button>
+								</form>
+
+								<form action="student_evaluation.jsp" method="POST"
+									style="display: inline;">
+									<input type="hidden" name="studentId"
+										value="<%=app.getStudentId()%>"> <input type="hidden"
+										name="internshipId" value="<%=app.getInternshipId()%>">
+									<button type="submit" class="button-primary" style="padding: 10px; border-radius: 20px">Evaluation</button>
+								</form> --%>
+
+
 							</div>
 						</td>
-						
+
 					</tr>
 					<%
 					}
@@ -90,6 +110,9 @@ if (totalItems > 0) {
 				</tbody>
 			</table>
 		</div>
+		<%
+			if (!pagedApps.isEmpty()) {
+			%>
 		<div class="pagination int-pag">
 			<%
 			if (currentPage > 1) {
@@ -117,6 +140,9 @@ if (totalItems > 0) {
 			}
 			%>
 		</div>
+		<%
+			}
+			%>
 	</div>
 </body>
 </html>

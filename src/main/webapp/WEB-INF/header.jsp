@@ -24,12 +24,7 @@
 					<li><a href="archived.jsp">Archived</a></li>
 				</ul></li>
 
-			<li class="dropdown"><input type="checkbox" id="students-toggle">
-				<label for="students-toggle">Students</label>
-				<ul class="dropdown-menu">
-					<li><a href="evaluations.jsp">Evaluations</a></li>
-					<li><a href="students.jsp">Students</a></li>
-				</ul></li>
+			<li><a href="students.jsp">Students</a></li>
 
 			<li class="dropdown"><input type="checkbox" id="profile-toggle">
 				<label for="profile-toggle">Profile</label>

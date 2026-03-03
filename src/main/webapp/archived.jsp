@@ -64,6 +64,7 @@ if (totalItems > 0) {
 					<th>Internship</th>
 					<th>Student</th>
 					<th>Status</th>
+					<th>CV</th>
 				</tr>
 			</thead>
 
@@ -77,25 +78,13 @@ if (totalItems > 0) {
 					<td><%=app.getInternshipName()%></td>
 					<td><%=app.getStudentName()%></td>
 					<td><%=app.getStatus().toLowerCase()%></td>
-					<%-- <td>
+					 <td>
 					<div class="action-buttons">
-						<form method="POST" style="display: inline;"
-							onsubmit="return confirm('Are you sure you want to accept this application?');">
-							<input type="hidden" name="appId" value="<%=app.getId()%>">
-							<input type="hidden" name="newStatus" value="ACCEPTED">
-							<button type="submit" class="apply-btn">✔ Accept</button>
-						</form>
-
-						<form method="POST" style="display: inline;"
-							onsubmit="return confirm('Are you sure you want to decline this application?');">
-							<input type="hidden" name="appId" value="<%=app.getId()%>">
-							<input type="hidden" name="newStatus" value="DECLINED">
-							<button type="submit" class="apply-btn"
-							style="background-color: #c42a1f">✖ Decline</button>
-						</form>
-						
+						<a href="cv_view.jsp?studentId=<%=app.getStudentId()%>"
+									class="pagination-link-enabled" style="max-width: none;">
+									View </a> 
 						</div>
-					</td> --%>
+					</td> 
 					
 				</tr>
 				<%
@@ -104,6 +93,10 @@ if (totalItems > 0) {
 			</tbody>
 		</table>
 	</div>
+	
+	<%
+			if (!pagedApps.isEmpty()) {
+			%>
 		<div class="pagination int-pag">
 			<%
 			if (currentPage > 1) {
@@ -131,6 +124,9 @@ if (totalItems > 0) {
 			}
 			%>
 		</div>
+		<%
+			}
+			%>
 	</div>
 </body>
 </html>

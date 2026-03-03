@@ -17,6 +17,14 @@ if (!(userBean.isLoggedIn())) {
 String message = null;
 boolean success = false;
 
+if (session.getAttribute("flashMessage") != null) {
+    message = (String) session.getAttribute("flashMessage");
+    success = (Boolean) session.getAttribute("flashSuccess");
+    
+    session.removeAttribute("flashMessage");
+    session.removeAttribute("flashSuccess");
+}
+
 if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit") != null) {
 	try {
 		String name = request.getParameter("name");
@@ -27,7 +35,7 @@ if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit
 		String skills = request.getParameter("skills");
 		String requirements = request.getParameter("requirements");
 
-		InternshipDTO dto = internshipBean.getInternship();
+		InternshipDTO dto = new InternshipDTO();
 		dto.setName(name.trim());
 		dto.setAbout(about);
 		dto.setTechnologies(technologies);
@@ -43,17 +51,21 @@ if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit
 	dto.setEndDate(LocalDate.parse(endDateStr));
 		}
 
-		boolean created = internshipBean.createInternship();
+		boolean created = internshipBean.createInternship(dto);
 
 		if (created) {
-	message = "Internship successfully created.";
-	success = true;
+	session.setAttribute("flashMessage", "Internship successfully created.");
+	session.setAttribute("flashSuccess", true);
 		} else {
-	message = "Failed to create internship.";
+	session.setAttribute("flashMessage", "Failed to create internship.");
+	session.setAttribute("flashSuccess", false);
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
+	
+	response.sendRedirect("new_internship.jsp");
+	return; 
 }
 %>
 

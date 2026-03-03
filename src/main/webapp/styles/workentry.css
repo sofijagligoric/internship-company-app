@@ -1,0 +1,41 @@
+.workentry-main{
+	padding: 40px;
+	align-items: center;
+	justify-content: center;
+}
+
+.we-cards-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+}
+
+.we-card {
+	padding: 10px 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	background-color: #dedaf2;
+	transition: 0.3s ease;
+}
+
+
+.we-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.delete-button-div-evaluation{
+	width: 100%;
+	align-items: flex-start;
+	justify-content: flex-end;
+}
+
+@media ( max-width : 768px) {
+	.workentry-main{
+		padding: 20px;
+	}
+
+}

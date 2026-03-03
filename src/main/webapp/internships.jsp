@@ -43,7 +43,7 @@ if ("refused".equals(actionStatus)) {
 			session.setAttribute("flashSuccess", false);
 		}
 	} catch (Exception e) {
-		session.setAttribute("flashMessage", "An error occurred: " + (e.getMessage() != null ? e.getMessage() : "Database constraint violation."));
+		session.setAttribute("flashMessage", "An error occurred.");
 		session.setAttribute("flashSuccess", false);
 	}
 
@@ -73,7 +73,7 @@ if (updateStatusIdParam != null && "POST".equalsIgnoreCase(request.getMethod()))
 	return;
 }
 List<InternshipDTO> allInternships = internshipBean.getAllInternships();
-int pageSize = 10;
+int pageSize = 5;
 int currentPage = 1;
 String pageParam = request.getParameter("page");
 
@@ -163,6 +163,11 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 						<%=internship.getRequirements()%></p>
 				</div>
 				<div class="card-footer">
+					<a href="edit_internship.jsp?id=<%=internship.getId()%>"
+						class="apply-btn"
+						style="background-color: #007bff; text-decoration: none; text-align: center;">
+						Edit </a>
+
 					<form method="POST">
 						<input type="hidden" name="updateStatusId"
 							value="<%=internship.getId()%>">
@@ -185,7 +190,9 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 			%>
 		</div>
 
-
+<%
+			if (!pagedInternships.isEmpty()) {
+			%>
 		<div class="pagination int-pag">
 			<%
 			if (currentPage > 1) {
@@ -213,6 +220,9 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 			}
 			%>
 		</div>
+		<%
+			}
+			%>
 	</div>
 
 	<script>

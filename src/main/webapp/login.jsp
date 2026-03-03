@@ -7,19 +7,26 @@
 	<jsp:useBean id="applicationsBean"
 	class="org.unibl.etf.company.bean.ApplicationsBean" scope="session" />
 <%
-String notification = "";
+String notification = null;
 if (request.getParameter("submit") != null) {
 	String user = request.getParameter("username");
 	String pass = request.getParameter("password");
+	int result = userBean.login(user, pass);
 
-	if (userBean.login(user, pass)) {
+	if (result == 1) {
 		Integer companyId = userBean.getUser().getId();
 		internshipBean.loadInternships(companyId);
 		applicationsBean.loadApplications(companyId);
 		response.sendRedirect("internships.jsp");
 		return;
-	} else {
+	} else if(result==2){
+		notification = "Account not active. Unable to proceed.";
+	}
+	else if(result==3){
 		notification = "Wrong username or password!";
+	}
+	else{
+		notification = "An error occurred.";
 	}
 }
 %>
@@ -34,6 +41,15 @@ if (request.getParameter("submit") != null) {
 </head>
 <body>
 	<div class="main-div column-div">
+		<%
+		if (notification != null) {
+		%>
+		<div class="notification error">
+			<%=notification%>
+		</div>
+		<%
+		}
+		%>
 		<form method="POST" action="login.jsp" class="login-form column-div">
 			<h1 class="login-title">Login</h1>
 			<input type="text" name="username" required placeholder="Username" />
@@ -42,12 +58,18 @@ if (request.getParameter("submit") != null) {
 				type="submit" value="Login" name="submit" />
 
 		</form>
-		<% if (!notification.isEmpty()) { %>
-		<div class="notification-div">
-			<h3><%= notification %></h3>
-		</div>
-		<% } %>
 	</div>
-
+<script>
+    const notification = document.querySelector('.notification');
+    if (notification) {
+        setTimeout(() => {
+            notification.style.transition = "opacity 0.5s ease";
+            notification.style.opacity = "0";
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 500);
+        }, 5000);
+    }
+    </script>
 </body>
 </html>

@@ -13,30 +13,38 @@ if (!(userBean.isLoggedIn())) {
 
 String message = null;
 boolean success = false;
+
+if (session.getAttribute("flashMessage") != null) {
+    message = (String) session.getAttribute("flashMessage");
+    success = (Boolean) session.getAttribute("flashSuccess");
+    
+    session.removeAttribute("flashMessage");
+    session.removeAttribute("flashSuccess");
+}
 if ("POST".equalsIgnoreCase(request.getMethod())) {
 
 	String oldPassword = request.getParameter("oldPassword");
 	String newPassword = request.getParameter("newPassword");
-
-	if (oldPassword != null && newPassword != null && !oldPassword.isEmpty() && !newPassword.isEmpty()) {
 		if(oldPassword.equals(newPassword))
 		{
-			message = "Passwords must be different.";
+			session.setAttribute("flashMessage", "Passwords must be different.");
+			session.setAttribute("flashSuccess", false);
 		}
 		else{
 			PasswordChangeDTO dto = new PasswordChangeDTO(oldPassword, newPassword);
 			Integer userId = userBean.getUser().getId();
 			success = userBean.changePassword(userId, dto);
 			if (success) {
-		message = "Password successfully changed.";
+		session.setAttribute("flashMessage", "Password successfully changed.");
+		session.setAttribute("flashSuccess", true);
 			} else {
-		message = "Password change failed.";
+		session.setAttribute("flashMessage", "Old password incorrect.");
+		session.setAttribute("flashSuccess", false);
 			}
+			
 		}
-		
-	} else {
-		message = "All fields are required.";
-	}
+		response.sendRedirect("password_change.jsp");
+		return;
 }
 %>
 <!DOCTYPE html>
