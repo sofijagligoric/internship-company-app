@@ -1,10 +1,15 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import org.unibl.etf.company.util.Role;
 
-public class UserDTO {
+public class UserDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5333871588487474889L;
 	private Integer id;
     private String username;
     private Role role;

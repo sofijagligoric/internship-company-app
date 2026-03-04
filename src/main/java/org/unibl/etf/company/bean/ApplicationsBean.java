@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.unibl.etf.company.dto.ApplicationDTO;
-import org.unibl.etf.company.dto.InternshipDTO;
 import org.unibl.etf.company.service.BackendService;
 
 public class ApplicationsBean implements Serializable {
@@ -15,8 +14,6 @@ public class ApplicationsBean implements Serializable {
 	/**
 	 * 
 	 */
-	private BackendService bs = BackendService.getInstance();
-	private ApplicationDTO application = new ApplicationDTO();
 	private List<ApplicationDTO> allApplications = new ArrayList<ApplicationDTO>();
 	private List<ApplicationDTO> pendingApplications = new ArrayList<ApplicationDTO>();
 	
@@ -34,7 +31,7 @@ public class ApplicationsBean implements Serializable {
 	public boolean changeStatus(Integer id, String status) {
 	    try {
 	        String endpoint = "/application/" + id + "/status?status=" + status;
-	        ApplicationDTO updated = bs.putWithResponse(endpoint, null, ApplicationDTO.class);
+	        ApplicationDTO updated = BackendService.putWithResponse(endpoint, null, ApplicationDTO.class);
 
 	        if (updated != null) {
 	            pendingApplications.removeIf(app -> app.getId().equals(id));
@@ -56,10 +53,10 @@ public class ApplicationsBean implements Serializable {
 	}
 
 	public List<ApplicationDTO> getAllCompanyApplications(Integer companyId) {
-        return bs.getList("/application/company/" + companyId, ApplicationDTO[].class);
+        return BackendService.getList("/application/company/" + companyId, ApplicationDTO[].class);
     }
 	 public List<ApplicationDTO> getCompanyApplicationsPending(Integer companyId) {
-	        return bs.getList("/application/company/" + companyId + "/pending", ApplicationDTO[].class);
+	        return BackendService.getList("/application/company/" + companyId + "/pending", ApplicationDTO[].class);
 	    }
 	 
 	 public List<ApplicationDTO> getAcceptedApplications() {

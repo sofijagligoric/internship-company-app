@@ -1,10 +1,15 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class WorkentryDTO {
-	 private Integer id;
+public class WorkentryDTO implements Serializable{
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8030943864440451755L;
+	private Integer id;
 	    private String activity;
 	    private LocalDate weekStart;
 	    private Integer internshipId;

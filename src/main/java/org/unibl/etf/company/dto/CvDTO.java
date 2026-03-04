@@ -1,8 +1,13 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CvDTO {
+public class CvDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3168588842488468304L;
 	private Integer id;
     private String description;
     private String imagePath;

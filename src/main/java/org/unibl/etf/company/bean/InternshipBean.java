@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.unibl.etf.company.dto.ApplicationDTO;
-import org.unibl.etf.company.dto.CvDTO;
 import org.unibl.etf.company.dto.InternshipDTO;
 import org.unibl.etf.company.service.BackendService;
 
@@ -15,7 +13,6 @@ public class InternshipBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3362892697444217937L;
-	private BackendService bs = BackendService.getInstance();
 	private List<InternshipDTO> allInternships = new ArrayList<InternshipDTO>();
 
 	public InternshipBean() {
@@ -30,15 +27,15 @@ public class InternshipBean implements Serializable {
 	}
 
 	public List<InternshipDTO> getAvailableInternships() {
-		return bs.getList("/internship/available", InternshipDTO[].class);
+		return BackendService.getList("/internship/available", InternshipDTO[].class);
 	}
 
 	public List<InternshipDTO> getCompanyInternships(Integer companyId) {
-		return bs.getList("/internship/company/" + companyId, InternshipDTO[].class);
+		return BackendService.getList("/internship/company/" + companyId, InternshipDTO[].class);
 	}
 
 	public boolean createInternship(InternshipDTO dto) {
-		InternshipDTO result = bs.post("/internship", dto, InternshipDTO.class);
+		InternshipDTO result = BackendService.post("/internship", dto, InternshipDTO.class);
 		if (result != null) {
 			this.allInternships.add(result);
 			return true;
@@ -48,7 +45,7 @@ public class InternshipBean implements Serializable {
 
 	public boolean changeStatus(Integer id) {
 		try {
-			InternshipDTO updated = bs.putWithResponse("/internship/" + id + "/status", null, InternshipDTO.class);
+			InternshipDTO updated = BackendService.putWithResponse("/internship/" + id + "/status", null, InternshipDTO.class);
 
 			if (updated != null) {
 				allInternships.replaceAll(i -> i.getId().equals(id) ? updated : i);
@@ -61,7 +58,7 @@ public class InternshipBean implements Serializable {
 	}
 
 	public boolean deleteInternship(Integer id) {
-		boolean deleted = bs.delete("/internship/" + id);
+		boolean deleted = BackendService.delete("/internship/" + id);
 		if (deleted) {
 			allInternships.removeIf(i -> i.getId().equals(id));
 		}
@@ -69,12 +66,12 @@ public class InternshipBean implements Serializable {
 	}
 
 	public InternshipDTO getInternshipById(Integer internshipId) {
-		return bs.get("/internship/" + internshipId, InternshipDTO.class);
+		return BackendService.get("/internship/" + internshipId, InternshipDTO.class);
 	}
 
 	public boolean updateInternship(Integer id, InternshipDTO dto) {
 		try {
-			InternshipDTO updated = bs.putWithResponse("/internship/" + id, dto, InternshipDTO.class);
+			InternshipDTO updated = BackendService.putWithResponse("/internship/" + id, dto, InternshipDTO.class);
 
 			if (updated != null) {
 				allInternships.replaceAll(i -> i.getId().equals(id) ? updated : i);

@@ -317,9 +317,18 @@ h1, h2, h3, h4, h5, h6 {
 	word-wrap: break-word;
 }
 
+
+
 @media ( max-width : 700px) {
 	.notification {
 		right: 20px;
 		left: 20px;
 	}
+}
+
+.title-div{
+	width: 100%;
+	font-size: 1.5rem;
+	background: #051642;
+	margin-bottom: 10px;
 }

@@ -8,21 +8,12 @@ import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class BackendService {
     private static final String BASE_URL = "http://localhost:8080/api";
-    private final Client client;
-    private static BackendService instance;
+    private static final Client client = ClientBuilder.newClient();
 
-    private BackendService() {
-        this.client = ClientBuilder.newClient();
-    }
-
-    public static synchronized BackendService getInstance() {
-        if (instance == null) instance = new BackendService();
-        return instance;
-    }
-
-    public <T> T get(String endpoint, Class<T> responseType) {
+    public static <T> T get(String endpoint, Class<T> responseType) {
         try {
             return client.target(BASE_URL).path(endpoint)
                     .request(MediaType.APPLICATION_JSON)
@@ -33,7 +24,7 @@ public class BackendService {
         }
     }
 
-    public <T> List<T> getList(String endpoint, Class<T[]> responseArrayType) {
+    public static <T> List<T> getList(String endpoint, Class<T[]> responseArrayType) {
         try {
             T[] array = client.target(BASE_URL).path(endpoint)
                     .request(MediaType.APPLICATION_JSON)
@@ -45,7 +36,7 @@ public class BackendService {
         }
     }
 
-    public <T> T post(String endpoint, Object body, Class<T> responseType) {
+    public static <T> T post(String endpoint, Object body, Class<T> responseType) {
         try {
             return client.target(BASE_URL).path(endpoint)
                     .request(MediaType.APPLICATION_JSON)
@@ -56,13 +47,12 @@ public class BackendService {
         }
     }
     
-    public boolean put(String endpoint, Object body) {
+    public static boolean put(String endpoint, Object body) {
         try {
             Response response = client.target(BASE_URL).path(endpoint)
                     .request(MediaType.APPLICATION_JSON)
                     .put(Entity.entity(body, MediaType.APPLICATION_JSON));
 
-            int status = response.getStatus();
             boolean isSuccessful = response.getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL;
             response.close();
             return isSuccessful;
@@ -72,7 +62,7 @@ public class BackendService {
         }
     }
     
-    public <T> T putWithResponse(String endpoint, Object body, Class<T> responseType) {
+    public static <T> T putWithResponse(String endpoint, Object body, Class<T> responseType) {
         try {
             String fullUrl = BASE_URL + endpoint; 
             Entity<?> entity = (body == null) 
@@ -88,7 +78,7 @@ public class BackendService {
         }
     }
     
-    public boolean delete(String endpoint) { 
+    public static boolean delete(String endpoint) { 
         try {
             Response response = client.target(BASE_URL)
                                       .path(endpoint)
@@ -104,32 +94,4 @@ public class BackendService {
         }
     }
 
-  
-    public boolean patch(String endpoint, Object body) {
-        try {
-            Response response = client.target(BASE_URL)
-                    .path(endpoint)
-                    .request(MediaType.APPLICATION_JSON)
-                    .method("PATCH", Entity.entity(body, MediaType.APPLICATION_JSON));
-
-            return response.getStatus() == 200;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    
-    public <T> T patchWithResponse(String endpoint, Object body, Class<T> responseType) {
-        try {
-            Object entityBody = (body != null) ? body : ""; 
-            
-            return client.target(BASE_URL)
-                    .path(endpoint)
-                    .request(MediaType.APPLICATION_JSON)
-                    .method("PATCH", Entity.entity(entityBody, MediaType.APPLICATION_JSON), responseType);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

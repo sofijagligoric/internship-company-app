@@ -1,8 +1,13 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CompanyDTO {
+public class CompanyDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5378107346427747566L;
 	private Integer id;
     private String name;
     private String email;

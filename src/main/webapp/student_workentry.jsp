@@ -22,17 +22,17 @@ String iIdParam = request.getParameter("internshipId");
 List<WorkentryDTO> workEntries = null;
 
 if (sIdParam != null && iIdParam != null) {
-    try {
-        Integer studentId = Integer.parseInt(sIdParam);
-        Integer internshipId = Integer.parseInt(iIdParam);
-        workEntries = workentryBean.getAllStudentWorkentryForInternship(studentId, internshipId);
-    } catch (NumberFormatException e) {
-        response.sendRedirect("students.jsp");
-        return;
-    }
+	try {
+		Integer studentId = Integer.parseInt(sIdParam);
+		Integer internshipId = Integer.parseInt(iIdParam);
+		workEntries = workentryBean.getAllStudentWorkentryForInternship(studentId, internshipId);
+	} catch (NumberFormatException e) {
+		response.sendRedirect("students.jsp");
+		return;
+	}
 } else {
-    response.sendRedirect("students.jsp");
-    return;
+	response.sendRedirect("students.jsp");
+	return;
 }
 %>
 <!DOCTYPE html>
@@ -50,24 +50,32 @@ if (sIdParam != null && iIdParam != null) {
 
 	<div class="workentry-main column-div">
 
-		<% if (workEntries == null || workEntries.isEmpty()) { %>
+		<%
+		if (workEntries == null || workEntries.isEmpty()) {
+		%>
 		<p>No entries found for this internship.</p>
-		<% } else { %>
+		<%
+		} else {
+		%>
 		<div class="we-cards-container">
-			<% DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
-            for(WorkentryDTO entry : workEntries) { %>
+			<%
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+			for (WorkentryDTO entry : workEntries) {
+			%>
 			<div class="we-card">
 				<p>
 					<strong>Week start:</strong>
 					<%=entry.getWeekStart() != null ? entry.getWeekStart().format(formatter) : "/"%></p>
 				<p>
-					<%= entry.getActivity() %></p>
+					<%=entry.getActivity()%></p>
 			</div>
-			<% } %>
+			<%
+			}
+			%>
 		</div>
-		<% } %>
-
-
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

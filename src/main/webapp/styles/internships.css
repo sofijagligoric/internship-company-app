@@ -43,7 +43,7 @@ table {
 }
 
 .internship-card {
-	padding: 20px;
+	padding: 30px;
 	border-radius: 12px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 	background-color: #ddecf0; /*#dedaf2*/
@@ -104,10 +104,6 @@ table {
 	font-size: 14px;
 }
 
-.main-internships-div {
-	padding: 40px;
-}
-
 .paragraph {
 	display: flex;
 	align-items: center;
@@ -134,6 +130,9 @@ table {
 	.status {
 		align-self: flex-end;
 	}
+	
+	.internship-card {
+	padding: 25px;}
 }
 
 .card-footer {

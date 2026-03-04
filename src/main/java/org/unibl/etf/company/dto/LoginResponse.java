@@ -1,10 +1,15 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import org.unibl.etf.company.util.Role;
 
-public class LoginResponse {
+public class LoginResponse implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3495844756062457062L;
 	private Integer userId;
     private Role role;
 	public LoginResponse(Integer userId, Role role) {
@@ -43,9 +48,6 @@ public class LoginResponse {
 		LoginResponse other = (LoginResponse) obj;
 		return role == other.role && Objects.equals(userId, other.userId);
 	}
-	@Override
-	public String toString() {
-		return "LoginResponse [userId=" + userId + ", role=" + role + "]";
-	}
+
     
 }

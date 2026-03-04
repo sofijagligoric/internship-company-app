@@ -1,9 +1,14 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class EvaluationDTO {
-	 private Integer id;
+public class EvaluationDTO implements Serializable{
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = -312328351026881303L;
+	private Integer id;
 	    private String description;
 	    private Integer studentId;
 	    private Integer internshipId;

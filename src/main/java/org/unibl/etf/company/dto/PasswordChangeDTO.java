@@ -1,7 +1,14 @@
 package org.unibl.etf.company.dto;
 
-public class PasswordChangeDTO {
+import java.io.Serializable;
+import java.util.Objects;
 
+public class PasswordChangeDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 751189272104898008L;
 	private String oldPassword;
 	private String newPassword;
 
@@ -31,4 +38,23 @@ public class PasswordChangeDTO {
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(newPassword, oldPassword);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PasswordChangeDTO other = (PasswordChangeDTO) obj;
+		return Objects.equals(newPassword, other.newPassword) && Objects.equals(oldPassword, other.oldPassword);
+	}
+	
+	
 }

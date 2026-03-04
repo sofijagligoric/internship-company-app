@@ -1,10 +1,14 @@
 package org.unibl.etf.company.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-import org.unibl.etf.company.util.Role;
 
-public class LoginRequest {
+public class LoginRequest implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7450318691749901842L;
 	private String username;
     private String password;
 	public LoginRequest() {
@@ -43,7 +47,5 @@ public class LoginRequest {
 		LoginRequest other = (LoginRequest) obj;
 		return Objects.equals(password, other.password) && Objects.equals(username, other.username);
 	}
-    
-    
-    
+
 }

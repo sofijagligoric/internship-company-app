@@ -2,6 +2,7 @@ package org.unibl.etf.company.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class InternshipDTO implements Serializable{
 
@@ -99,6 +100,22 @@ public class InternshipDTO implements Serializable{
 	}
 	public void setRequirements(String requirements) {
 		this.requirements = requirements;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(available, companyId, id, name);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		InternshipDTO other = (InternshipDTO) obj;
+		return Objects.equals(available, other.available) && Objects.equals(companyId, other.companyId)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
     
     
