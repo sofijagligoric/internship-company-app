@@ -5,6 +5,7 @@
 	background: #f5f7fa;
 	align-items: center;
 }
+
 .new-int-header {
 	color: #051642;
 	text-align: center;
@@ -19,7 +20,6 @@
 .submit-button {
 	width: 150px;
 	align-self: flex-end;
-	margin-top: 15px;
 }
 
 .internship-form {
@@ -38,7 +38,6 @@
 	width: 100%;
 }
 
-
 .input-group {
 	margin-bottom: 15px;
 	display: flex;
@@ -48,6 +47,13 @@
 .input-group label {
 	font-weight: bold;
 	margin-bottom: 5px;
+}
+
+.actions-div {
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+	margin-top: 15px;
 }
 
 @media ( max-width : 750px) {
@@ -60,9 +66,12 @@
 	.main-new-internship-div {
 		padding: 10px;
 	}
-	
 	.new-int-header {
-	font-size: 1.2rem;
-	margin-bottom: 25px;
-}
+		font-size: 1.2rem;
+		margin-bottom: 25px;
+	}
+	.actions-div {
+		justify-content: center;
+		gap: 15px;
+	}
 }

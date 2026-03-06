@@ -82,7 +82,7 @@ if (totalItems > 0) {
 									class="pagination-link-enabled" style="max-width: none;">
 									Work entry </a> <a
 									href="student_evaluation.jsp?studentId=<%=app.getStudentId()%>&internshipId=<%=app.getInternshipId()%>"
-									class="pagination-link-enabled" style="max-width: none;"> Evaluation </a>
+									class="pagination-link-enabled" style="width: max-content;max-width: none;"> Evaluation </a>
 
 								<%-- <form action="student_workentry.jsp" method="POST"
 									style="display: inline;">

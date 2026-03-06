@@ -131,8 +131,14 @@ if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit
 					<textarea name="requirements" id="requirements" rows="4" required></textarea>
 				</div>
 
-				<input class="button-primary submit-button" type="submit"
+				
+					<div class="row-div actions-div">
+					<a href="internships.jsp" class="pagination-link-enabled"
+						style="background-color: #c42a1f">Cancel</a>
+						<input class="button-primary submit-button" type="submit"
 					value="Create Internship" name="submit" />
+
+				</div>
 			</form>
 		</div>
 	</div>

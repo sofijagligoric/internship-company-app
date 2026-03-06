@@ -89,49 +89,56 @@ if ("POST".equalsIgnoreCase(request.getMethod())) {
 		%>
 
 		<div class="new-internship-card">
-            <h2 class="new-int-header">Edit Internship: <%=internship.getName()%></h2>
-            <form class="column-div internship-form" method="POST">
-                <input type="hidden" name="id" value="<%=internship.getId()%>">
+			<h2 class="new-int-header">
+				Edit Internship:
+				<%=internship.getName()%></h2>
+			<form class="column-div internship-form" method="POST">
+				<input type="hidden" name="id" value="<%=internship.getId()%>">
 
-                <div class="column-div create-internship-input-div">
-                    <label>Internship Name:</label>
-                    <input type="text" name="name" value="<%=internship.getName()%>" required />
-                </div>
+				<div class="column-div create-internship-input-div">
+					<label>Internship Name:</label> <input type="text" name="name"
+						value="<%=internship.getName()%>" required />
+				</div>
 
-                <div class="column-div create-internship-input-div">
-                    <label>Start Date:</label>
-                    <input type="date" name="startDate" value="<%=internship.getStartDate()%>" required />
-                </div>
-                
-                <div class="column-div create-internship-input-div">
-                    <label>End Date:</label>
-                    <input type="date" name="endDate" value="<%=internship.getEndDate()%>" required />
-                </div>
+				<div class="column-div create-internship-input-div">
+					<label>Start Date:</label> <input type="date" name="startDate"
+						value="<%=internship.getStartDate()%>" required />
+				</div>
 
-                <div class="column-div create-internship-input-div">
-                    <label>Technologies:</label>
-                    <input type="text" name="technologies" value="<%=internship.getTechnologies()%>" required />
-                </div>
+				<div class="column-div create-internship-input-div">
+					<label>End Date:</label> <input type="date" name="endDate"
+						value="<%=internship.getEndDate()%>" required />
+				</div>
 
-                <div class="column-div create-internship-input-div">
-                    <label>Skills:</label>
-                    <input type="text" name="skills" value="<%=internship.getSkills()%>" />
-                </div>
+				<div class="column-div create-internship-input-div">
+					<label>Technologies:</label> <input type="text" name="technologies"
+						value="<%=internship.getTechnologies()%>" required />
+				</div>
 
-                <div class="column-div create-internship-input-div">
-                    <label>About:</label>
-                    <textarea name="about" rows="4"><%=internship.getAbout()%></textarea>
-                </div>
+				<div class="column-div create-internship-input-div">
+					<label>Skills:</label> <input type="text" name="skills"
+						value="<%=internship.getSkills()%>" />
+				</div>
 
-                <div class="column-div create-internship-input-div">
-                    <label>Requirements:</label>
-                    <textarea name="requirements" rows="4" required><%=internship.getRequirements()%></textarea>
-                </div>
+				<div class="column-div create-internship-input-div">
+					<label>About:</label>
+					<textarea name="about" rows="4"><%=internship.getAbout()%></textarea>
+				</div>
 
-                <input class="button-primary submit-button" type="submit" value="Save Changes" />
-                <a href="internships.jsp" class="pagination-link-enabled" style="background-color: #c42a1f">Cancel</a>
-            </form>
-        </div>
+				<div class="column-div create-internship-input-div">
+					<label>Requirements:</label>
+					<textarea name="requirements" rows="4" required><%=internship.getRequirements()%></textarea>
+				</div>
+
+				<div class="row-div actions-div">
+					<a href="internships.jsp" class="pagination-link-enabled"
+						style="background-color: #c42a1f">Cancel</a> <input
+						class="button-primary submit-button" type="submit"
+						value="Save Changes" />
+
+				</div>
+			</form>
+		</div>
 	</div>
 	<script>
     const notification = document.querySelector('.notification');
