@@ -65,8 +65,8 @@ public class InternshipBean implements Serializable {
 		return deleted;
 	}
 
-	public InternshipDTO getInternshipById(Integer internshipId) {
-		return BackendService.get("/internship/" + internshipId, InternshipDTO.class);
+	public InternshipDTO getInternshipById(Integer companyId, Integer internshipId) {
+		return BackendService.get("/internship/" +companyId + "/"+ internshipId, InternshipDTO.class);
 	}
 
 	public boolean updateInternship(Integer id, InternshipDTO dto) {

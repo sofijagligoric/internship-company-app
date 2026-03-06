@@ -21,7 +21,7 @@ if (idParam == null) {
 }
 
 Integer id = Integer.parseInt(idParam);
-InternshipDTO internship = internshipBean.getInternshipById(id); 
+InternshipDTO internship = internshipBean.getInternshipById(userBean.getUser().getId(), id); 
 
 if (internship == null) {
     response.sendError(HttpServletResponse.SC_NOT_FOUND);

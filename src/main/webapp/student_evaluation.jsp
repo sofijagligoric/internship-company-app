@@ -11,7 +11,6 @@
 	class="org.unibl.etf.company.bean.EvaluationBean" scope="session" />
 
 <%
-
 if (!userBean.isLoggedIn()) {
     response.sendRedirect("login.jsp");
     return;
@@ -27,13 +26,20 @@ if (sIdStr == null || iIdStr == null) {
 
 Integer studentId = Integer.parseInt(sIdStr);
 Integer internshipId = Integer.parseInt(iIdStr);
-if ("POST".equalsIgnoreCase(request.getMethod()) &&
-    request.getParameter("action") != null) {
+
+EvaluationDTO evaluation = null;
+try {
+    evaluation = evaluationBean.getStudentEvaluationForInternship(userBean.getUser().getId(), studentId, internshipId);
+} catch (Exception e) {
+    response.sendRedirect("404.jsp");
+    return;
+}
+
+if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("action") != null) {
 
     String action = request.getParameter("action");
 
     if ("create".equals(action)) {
-
         String description = request.getParameter("description");
 
         EvaluationDTO dto = new EvaluationDTO();
@@ -50,21 +56,11 @@ if ("POST".equalsIgnoreCase(request.getMethod()) &&
             session.setAttribute("flashSuccess", false);
         }
 
-        response.sendRedirect(
-            "student_evaluation.jsp?studentId=" +
-            studentId + "&internshipId=" + internshipId
-        );
+        response.sendRedirect("student_evaluation.jsp?studentId=" + studentId + "&internshipId=" + internshipId);
         return;
     }
-
     else if ("delete".equals(action)) {
-
-        EvaluationDTO evaluationToDelete =
-            evaluationBean.getStudentEvaluationForInternship(studentId, internshipId);
-
-        if (evaluationToDelete != null &&
-            evaluationBean.deleteEvaluation(evaluationToDelete.getId())) {
-
+        if (evaluation != null && evaluationBean.deleteEvaluation(evaluation.getId())) {
             session.setAttribute("flashMessage", "Evaluation deleted.");
             session.setAttribute("flashSuccess", true);
         } else {
@@ -72,16 +68,11 @@ if ("POST".equalsIgnoreCase(request.getMethod()) &&
             session.setAttribute("flashSuccess", false);
         }
 
-        response.sendRedirect(
-            "student_evaluation.jsp?studentId=" +
-            studentId + "&internshipId=" + internshipId
-        );
+        response.sendRedirect("student_evaluation.jsp?studentId=" + studentId + "&internshipId=" + internshipId);
         return;
     }
 }
 
-EvaluationDTO evaluation =
-    evaluationBean.getStudentEvaluationForInternship(studentId, internshipId);
 String message = (String) session.getAttribute("flashMessage");
 Boolean success = (Boolean) session.getAttribute("flashSuccess");
 
@@ -104,42 +95,48 @@ if (message != null) {
 	<%@include file="WEB-INF/header.jsp"%>
 
 	<div class="workentry-main column-div">
-	<%
+		<%
 		if (message != null) {
 		%>
-	<div class="notification <%=success ? "success" : "error"%>">
-		<%=message%>
-	</div>
-	<%
+		<div class="notification <%=success ? "success" : "error"%>">
+			<%=message%>
+		</div>
+		<%
 		}
 		%>
 		<div class="we-cards-container">
-		<div class="we-card" style="padding:20px;">
-            <% if (evaluation != null) { %>
-                <div class="row-div delete-button-div-evaluation">
-                    <form method="POST" onsubmit="return confirm('Delete?');">
-                        <input type="hidden" name="studentId" value="<%= studentId %>">
-                        <input type="hidden" name="internshipId" value="<%= internshipId %>">
-                        <input type="hidden" name="action" value="delete">
-                        <button type="submit" class="apply-btn"
+			<div class="we-card" style="padding: 20px;">
+				<% if (evaluation != null) { %>
+				<div class="row-div delete-button-div-evaluation">
+					<form method="POST" onsubmit="return confirm('Delete?');">
+						<input type="hidden" name="studentId" value="<%= studentId %>">
+						<input type="hidden" name="internshipId"
+							value="<%= internshipId %>"> <input type="hidden"
+							name="action" value="delete">
+						<button type="submit" class="apply-btn"
 							style="background-color: #c42a1f; margin-top: 0px;">Delete</button>
-                    </form>
-                </div>
-                <p><strong>Description:</strong> <%= evaluation.getDescription() %></p>
-            <% } else { %>
-                <h3>New evaluation</h3>
-                <form method="POST">
-                    <input type="hidden" name="studentId" value="<%= studentId %>">
-                    <input type="hidden" name="internshipId" value="<%= internshipId %>">
-                    <input type="hidden" name="action" value="create">
-                    
-                    <textarea name="description" required placeholder="Write evaluation for student..." rows="4"></textarea>
-                    <button type="submit" class="button-primary" style="min-width: 70px; margin-top: 10px;">Save</button>
-                </form>
-            <% } %>
-        </div>
+					</form>
+				</div>
+				<p>
+					<strong>Description:</strong>
+					<%= evaluation.getDescription() %></p>
+				<% } else { %>
+				<h3>New evaluation</h3>
+				<form method="POST">
+					<input type="hidden" name="studentId" value="<%= studentId %>">
+					<input type="hidden" name="internshipId"
+						value="<%= internshipId %>"> <input type="hidden"
+						name="action" value="create">
 
-</div>
+					<textarea name="description" required
+						placeholder="Write evaluation for student..." rows="4"></textarea>
+					<button type="submit" class="button-primary"
+						style="min-width: 70px; margin-top: 10px;">Save</button>
+				</form>
+				<% } %>
+			</div>
+
+		</div>
 	</div>
 	<script>
     const notification = document.querySelector('.notification');

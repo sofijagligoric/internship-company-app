@@ -25,7 +25,7 @@ if (sIdParam != null && iIdParam != null) {
 	try {
 		Integer studentId = Integer.parseInt(sIdParam);
 		Integer internshipId = Integer.parseInt(iIdParam);
-		workEntries = workentryBean.getAllStudentWorkentryForInternship(studentId, internshipId);
+		workEntries = workentryBean.getAllStudentWorkentryForInternship(userBean.getUser().getId(), studentId, internshipId);
 	} catch (NumberFormatException e) {
 		response.sendRedirect("students.jsp");
 		return;

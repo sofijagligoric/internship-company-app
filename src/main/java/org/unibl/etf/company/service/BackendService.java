@@ -23,6 +23,12 @@ public class BackendService {
             return null;
         }
     }
+    
+    public static <T> T getWithoutCatch(String endpoint, Class<T> responseType) {
+        return client.target(BASE_URL).path(endpoint)
+                .request(MediaType.APPLICATION_JSON)
+                .get(responseType);
+    }
 
     public static <T> List<T> getList(String endpoint, Class<T[]> responseArrayType) {
         try {

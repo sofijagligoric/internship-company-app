@@ -91,6 +91,7 @@ if (totalItems > 0) {
 		<%
 		}
 		%>
+			<h2 class="title-h2">Pending applications</h2>
 		<div class="table-container">
 			<table>
 

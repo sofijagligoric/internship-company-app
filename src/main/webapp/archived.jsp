@@ -55,6 +55,7 @@ if (totalItems > 0) {
 <body>
 	<%@include file="WEB-INF/header.jsp"%>
 	<div class="main-new-app-div">
+	<h2 class="title-h2">Archived applications</h2>
     <div class="table-container">
 		<table>
 

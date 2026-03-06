@@ -9,6 +9,10 @@
 	margin-bottom: 1rem;
 }
 
+.title-h2 {
+	color: #051642;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -114,7 +118,7 @@ table {
 	width: 100%;
 	margin-bottom: 20px;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: space-between;
 }
 
 @media ( max-width : 768px) {
@@ -130,9 +134,13 @@ table {
 	.status {
 		align-self: flex-end;
 	}
-	
 	.internship-card {
-	padding: 25px;}
+		padding: 25px;
+	}
+	.create-int-button-div {
+		align-items: center;
+		justify-content: center;
+	}
 }
 
 .card-footer {

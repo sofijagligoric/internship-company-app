@@ -12,8 +12,8 @@ public class EvaluationBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -5693346669437292306L;
 	
-	public EvaluationDTO getStudentEvaluationForInternship(Integer studentId, Integer internshipId) {
-        return BackendService.get("/evaluation/student/"  +studentId +"/internship/" + internshipId, EvaluationDTO.class);
+	public EvaluationDTO getStudentEvaluationForInternship(Integer companyId, Integer studentId, Integer internshipId) {
+        return BackendService.getWithoutCatch("/evaluation/company/"+ companyId+"/internship/" + internshipId +"/student/"  +studentId , EvaluationDTO.class);
     }
 	
 	 public boolean createEvaluation(EvaluationDTO dto) {

@@ -13,8 +13,9 @@ public class WorkentryBean implements Serializable {
 	 */
 	private static final long serialVersionUID = -8091136527447925226L;
 	
-	public List<WorkentryDTO> getAllStudentWorkentryForInternship(Integer studentId, Integer internshipId) {
-        return BackendService.getList("/workentry/student/"  +studentId +"/internship/" + internshipId, WorkentryDTO[].class);
+	public List<WorkentryDTO> getAllStudentWorkentryForInternship(Integer companyId, Integer studentId, Integer internshipId) {
+        return BackendService.getList("/workentry/company/" + companyId +"/internship/" + internshipId + "/student/"  +studentId, WorkentryDTO[].class);
     }
+	
 
 }

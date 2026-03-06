@@ -17,11 +17,11 @@ String message = null;
 boolean success = false;
 
 if (session.getAttribute("flashMessage") != null) {
-    message = (String) session.getAttribute("flashMessage");
-    success = (Boolean) session.getAttribute("flashSuccess");
-    
-    session.removeAttribute("flashMessage");
-    session.removeAttribute("flashSuccess");
+	message = (String) session.getAttribute("flashMessage");
+	success = (Boolean) session.getAttribute("flashSuccess");
+
+	session.removeAttribute("flashMessage");
+	session.removeAttribute("flashSuccess");
 }
 
 String deleteIdParam = request.getParameter("deleteId");
@@ -36,11 +36,11 @@ if ("refused".equals(actionStatus)) {
 		boolean deleted = internshipBean.deleteInternship(idToDelete);
 
 		if (deleted) {
-			session.setAttribute("flashMessage", "Internship successfully deleted.");
-			session.setAttribute("flashSuccess", true);
+	session.setAttribute("flashMessage", "Internship successfully deleted.");
+	session.setAttribute("flashSuccess", true);
 		} else {
-			session.setAttribute("flashMessage", "Cannot delete this internship.");
-			session.setAttribute("flashSuccess", false);
+	session.setAttribute("flashMessage", "Cannot delete this internship.");
+	session.setAttribute("flashSuccess", false);
 		}
 	} catch (Exception e) {
 		session.setAttribute("flashMessage", "An error occurred.");
@@ -48,7 +48,7 @@ if ("refused".equals(actionStatus)) {
 	}
 
 	response.sendRedirect("internships.jsp");
-	return; 
+	return;
 }
 
 String updateStatusIdParam = request.getParameter("updateStatusId");
@@ -59,11 +59,11 @@ if (updateStatusIdParam != null && "POST".equalsIgnoreCase(request.getMethod()))
 		boolean updated = internshipBean.changeStatus(idToUpdate);
 
 		if (updated) {
-			session.setAttribute("flashMessage", "Status successfully changed.");
-			session.setAttribute("flashSuccess", true);
+	session.setAttribute("flashMessage", "Status successfully changed.");
+	session.setAttribute("flashSuccess", true);
 		} else {
-			session.setAttribute("flashMessage", "Failed to update status.");
-			session.setAttribute("flashSuccess", false);
+	session.setAttribute("flashMessage", "Failed to update status.");
+	session.setAttribute("flashSuccess", false);
 		}
 	} catch (Exception e) {
 		session.setAttribute("flashMessage", "An error occurred during status update.");
@@ -121,6 +121,7 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 		}
 		%>
 		<div class="row-div create-int-button-div">
+			<h2 class="title-h2">Internship management</h2>
 			<a href="new_internship.jsp" class="pagination-link-enabled"
 				style="max-width: none;">Create internship</a>
 		</div>
@@ -168,16 +169,18 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 						style="background-color: #007bff; text-decoration: none; text-align: center;">
 						Edit </a>
 
-					<form method="POST">
+					<form method="POST"
+						onsubmit="return confirmAction(event, 'Are you sure you want to change the status?')">
 						<input type="hidden" name="updateStatusId"
 							value="<%=internship.getId()%>">
 						<button type="submit" class="apply-btn"
-							style="background-color: <%=internship.getAvailable() ? "#c76528" : "#28a745"%>; min-width: 100px;">
+							style="background-color: <%=internship.getAvailable() ? "#c76528" : "#28a745"%>;">
 							<%=internship.getAvailable() ? "Close" : "Open"%>
 						</button>
 					</form>
 
-					<form method="POST" onsubmit="return confirmDelete(event, this)">
+					<form method="POST"
+						onsubmit="return confirmAction(event, 'Are you sure you want to delete this internship?')">
 						<input type="hidden" name="deleteId"
 							value="<%=internship.getId()%>">
 						<button type="submit" class="apply-btn"
@@ -190,9 +193,9 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 			%>
 		</div>
 
-<%
-			if (!pagedInternships.isEmpty()) {
-			%>
+		<%
+		if (!pagedInternships.isEmpty()) {
+		%>
 		<div class="pagination int-pag">
 			<%
 			if (currentPage > 1) {
@@ -221,19 +224,18 @@ List<InternshipDTO> pagedInternships = (totalItems > 0)
 			%>
 		</div>
 		<%
-			}
-			%>
+		}
+		%>
 	</div>
 
 	<script>
-    function confirmDelete(event, form) {
-        if (!confirm("Are you sure you want to delete this internship?")) {
-            event.preventDefault();
-            window.location.href = "internships.jsp?status=refused";
-            return false;
-        }
-        return true; 
-    }
+	function confirmAction(event, message) {
+	    if (!confirm(message)) {
+	        event.preventDefault();
+	        return false;
+	    }
+	    return true;
+	}
 
     window.onload = function() {
         const notification = document.querySelector('.notification');
