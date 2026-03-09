@@ -26,6 +26,23 @@
   height: 40px;
 }
 
+
+.login-form input {
+  height: 35px;
+  width: 100%;
+  text-indent: 5px;
+  font-size: 14px;
+  max-width: 300px;
+  border-radius: 0 !important;
+  outline: none !important;
+  border: none !important;
+  border-bottom: 2px solid #bdb6f0 !important;
+}
+.login-form input:focus {
+  border-bottom: 2px solid #8177c9 !important;
+}
+
+
 .notification-div {
 	background: #f03636;
 	color: white;

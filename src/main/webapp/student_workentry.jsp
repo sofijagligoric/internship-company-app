@@ -49,6 +49,7 @@ if (sIdParam != null && iIdParam != null) {
 	<%@include file="WEB-INF/header.jsp"%>
 
 	<div class="workentry-main column-div">
+	<a href="students.jsp" class="back-arrow"> &#8592; <span>Back</span></a>
 
 		<%
 		if (workEntries == null || workEntries.isEmpty()) {

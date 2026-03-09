@@ -12,16 +12,16 @@
 
 <%
 if (!userBean.isLoggedIn()) {
-    response.sendRedirect("login.jsp");
-    return;
+	response.sendRedirect("login.jsp");
+	return;
 }
 
 String sIdStr = request.getParameter("studentId");
 String iIdStr = request.getParameter("internshipId");
 
 if (sIdStr == null || iIdStr == null) {
-    response.sendRedirect("students.jsp");
-    return;
+	response.sendRedirect("students.jsp");
+	return;
 }
 
 Integer studentId = Integer.parseInt(sIdStr);
@@ -29,56 +29,55 @@ Integer internshipId = Integer.parseInt(iIdStr);
 
 EvaluationDTO evaluation = null;
 try {
-    evaluation = evaluationBean.getStudentEvaluationForInternship(userBean.getUser().getId(), studentId, internshipId);
+	evaluation = evaluationBean.getStudentEvaluationForInternship(userBean.getUser().getId(), studentId, internshipId);
 } catch (Exception e) {
-    response.sendRedirect("404.jsp");
-    return;
+	response.sendRedirect("404.jsp");
+	return;
 }
 
 if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("action") != null) {
 
-    String action = request.getParameter("action");
+	String action = request.getParameter("action");
 
-    if ("create".equals(action)) {
-        String description = request.getParameter("description");
+	if ("create".equals(action)) {
+		String description = request.getParameter("description");
 
-        EvaluationDTO dto = new EvaluationDTO();
-        dto.setDescription(description);
-        dto.setStudentId(studentId);
-        dto.setInternshipId(internshipId);
-        dto.setCompanyId(userBean.getUser().getId());
+		EvaluationDTO dto = new EvaluationDTO();
+		dto.setDescription(description);
+		dto.setStudentId(studentId);
+		dto.setInternshipId(internshipId);
+		dto.setCompanyId(userBean.getUser().getId());
 
-        if (evaluationBean.createEvaluation(dto)) {
-            session.setAttribute("flashMessage", "Evaluation created.");
-            session.setAttribute("flashSuccess", true);
-        } else {
-            session.setAttribute("flashMessage", "Could not create evaluation.");
-            session.setAttribute("flashSuccess", false);
-        }
+		if (evaluationBean.createEvaluation(dto)) {
+	session.setAttribute("flashMessage", "Evaluation created.");
+	session.setAttribute("flashSuccess", true);
+		} else {
+	session.setAttribute("flashMessage", "Could not create evaluation.");
+	session.setAttribute("flashSuccess", false);
+		}
 
-        response.sendRedirect("student_evaluation.jsp?studentId=" + studentId + "&internshipId=" + internshipId);
-        return;
-    }
-    else if ("delete".equals(action)) {
-        if (evaluation != null && evaluationBean.deleteEvaluation(evaluation.getId())) {
-            session.setAttribute("flashMessage", "Evaluation deleted.");
-            session.setAttribute("flashSuccess", true);
-        } else {
-            session.setAttribute("flashMessage", "Could not delete evaluation.");
-            session.setAttribute("flashSuccess", false);
-        }
+		response.sendRedirect("student_evaluation.jsp?studentId=" + studentId + "&internshipId=" + internshipId);
+		return;
+	} else if ("delete".equals(action)) {
+		if (evaluation != null && evaluationBean.deleteEvaluation(evaluation.getId())) {
+	session.setAttribute("flashMessage", "Evaluation deleted.");
+	session.setAttribute("flashSuccess", true);
+		} else {
+	session.setAttribute("flashMessage", "Could not delete evaluation.");
+	session.setAttribute("flashSuccess", false);
+		}
 
-        response.sendRedirect("student_evaluation.jsp?studentId=" + studentId + "&internshipId=" + internshipId);
-        return;
-    }
+		response.sendRedirect("student_evaluation.jsp?studentId=" + studentId + "&internshipId=" + internshipId);
+		return;
+	}
 }
 
 String message = (String) session.getAttribute("flashMessage");
 Boolean success = (Boolean) session.getAttribute("flashSuccess");
 
 if (message != null) {
-    session.removeAttribute("flashMessage");
-    session.removeAttribute("flashSuccess");
+	session.removeAttribute("flashMessage");
+	session.removeAttribute("flashSuccess");
 }
 %>
 <!DOCTYPE html>
@@ -95,6 +94,7 @@ if (message != null) {
 	<%@include file="WEB-INF/header.jsp"%>
 
 	<div class="workentry-main column-div">
+		<a href="students.jsp" class="back-arrow"> &#8592; <span>Back</span></a>
 		<%
 		if (message != null) {
 		%>
@@ -106,12 +106,14 @@ if (message != null) {
 		%>
 		<div class="we-cards-container">
 			<div class="we-card" style="padding: 20px;">
-				<% if (evaluation != null) { %>
+				<%
+				if (evaluation != null) {
+				%>
 				<div class="row-div delete-button-div-evaluation">
 					<form method="POST" onsubmit="return confirm('Delete?');">
-						<input type="hidden" name="studentId" value="<%= studentId %>">
+						<input type="hidden" name="studentId" value="<%=studentId%>">
 						<input type="hidden" name="internshipId"
-							value="<%= internshipId %>"> <input type="hidden"
+							value="<%=internshipId%>"> <input type="hidden"
 							name="action" value="delete">
 						<button type="submit" class="apply-btn"
 							style="background-color: #c42a1f; margin-top: 0px;">Delete</button>
@@ -119,13 +121,15 @@ if (message != null) {
 				</div>
 				<p>
 					<strong>Description:</strong>
-					<%= evaluation.getDescription() %></p>
-				<% } else { %>
+					<%=evaluation.getDescription()%></p>
+				<%
+				} else {
+				%>
 				<h3>New evaluation</h3>
 				<form method="POST">
-					<input type="hidden" name="studentId" value="<%= studentId %>">
+					<input type="hidden" name="studentId" value="<%=studentId%>">
 					<input type="hidden" name="internshipId"
-						value="<%= internshipId %>"> <input type="hidden"
+						value="<%=internshipId%>"> <input type="hidden"
 						name="action" value="create">
 
 					<textarea name="description" required
@@ -133,7 +137,9 @@ if (message != null) {
 					<button type="submit" class="button-primary"
 						style="min-width: 70px; margin-top: 10px;">Save</button>
 				</form>
-				<% } %>
+				<%
+				}
+				%>
 			</div>
 
 		</div>

@@ -81,6 +81,7 @@ if ("POST".equalsIgnoreCase(request.getMethod()) && request.getParameter("submit
 <body>
 	<%@include file="WEB-INF/header.jsp"%>
 	<div class="column-div main-new-internship-div">
+	<a href="internships.jsp" class="back-arrow" style="margin: 15px 20px;"> &#8592; <span>Back</span></a>
 		<%
 		if (message != null) {
 		%>

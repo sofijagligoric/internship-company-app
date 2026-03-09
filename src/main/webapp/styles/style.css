@@ -278,8 +278,7 @@ div {
 	align-self: flex-end;
 	word-break: break-all;
 	white-space: normal;
-	 z-index: 100; 
-	
+	z-index: 100;
 }
 
 .notification.success {
@@ -318,8 +317,6 @@ h1, h2, h3, h4, h5, h6 {
 	word-wrap: break-word;
 }
 
-
-
 @media ( max-width : 700px) {
 	.notification {
 		right: 20px;
@@ -327,9 +324,34 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-.title-div{
+.title-div {
 	width: 100%;
 	font-size: 1.5rem;
 	background: #051642;
 	margin-bottom: 10px;
+}
+
+.back-arrow {
+	display: none;
+	align-items: center;
+	text-decoration: none;
+	color: #555;
+	font-size: 16px;
+	margin-bottom: 20px;
+	transition: color 0.3s ease;
+	align-self: flex-start;
+}
+
+.back-arrow:hover {
+	color: #000;
+}
+
+.back-arrow span {
+	margin-left: 5px;
+}
+
+@media ( max-width : 770px) {
+	.back-arrow {
+		display: inline-flex;
+	}
 }
